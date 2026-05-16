@@ -1,9 +1,10 @@
 from ollama import chat
-from ollama import ChatResponse
 
-response: ChatRespone = chat(model="llama3:latest",messages=[{
-    'role':'user',
-    'content':'wwhy is the sky blue?',
-},])
+stream = chat(
+    model='llama3:latest',
+    messages=[{'role': 'user', 'content': 'Why is the sky blue?'}],
+    stream=True,
+)
 
-print(response['message']['content'])
+for chunk in stream:
+  print(chunk['message']['content'], end='', flush=True)
